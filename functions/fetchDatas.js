@@ -1,11 +1,8 @@
 const fetchDatas = async (collec, req, res, id) => {
   try {
     const page = Number(req.query.page);
-    console.log("page : " + page);
     const limit = Number(req.query.limit);
-    console.log("limit : " + limit);
     const skip = (page - 1) * limit;
-    console.log("skip : " + skip);
 
     // Create search, using filters
     const searchCollec = collec.find({ city: id });

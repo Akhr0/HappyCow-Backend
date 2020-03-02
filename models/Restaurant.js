@@ -27,6 +27,7 @@ const Restaurant = mongoose.model("Restaurant", {
   facebook: String,
   nearbyPlacesIds: Array,
   placeId: String,
+  premium: Number,
   city: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "City"

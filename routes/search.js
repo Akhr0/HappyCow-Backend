@@ -8,7 +8,6 @@ const Restaurant = require("../models/Restaurant");
 router.get("/search", async (req, res) => {
   try {
     const id = await fetchCity(req, res, City);
-    console.log("id :" + id);
     const result = await fetchDatas(Restaurant, req, res, id);
     res.json(result);
   } catch (error) {
