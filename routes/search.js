@@ -10,11 +10,13 @@ const createArrTypes = require("../middlewares/createArrTypes");
 
 router.get("/search", createArrTypes, async (req, res) => {
   try {
-    console.log("je passe");
     const resultCity = await fetchCity(req, res, City);
-    console.log(resultCity);
-    const result = await fetchDatas(Restaurant, req, res, resultCity);
-    res.json(result);
+    if (resultCity.id) {
+      const result = await fetchDatas(Restaurant, req, res, resultCity);
+      if (result.status === true) {
+        res.json(result);
+      }
+    }
   } catch (error) {
     res.send({ message: error.message });
   }

@@ -8,9 +8,11 @@ const fetchCity = async (req, res, City) => {
       coords: { lat: Number(result.coords.lat), lng: Number(result.coords.lng) }
     };
   } catch (error) {
-    res
-      .status(400)
-      .json({ error: "Cette ville ne fait pas dispo sur ce site" });
+    res.status(400).send({ message: error.message });
+    return {
+      id: null,
+      coords: null
+    };
   }
 };
 

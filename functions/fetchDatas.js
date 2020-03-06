@@ -17,9 +17,16 @@ const fetchDatas = async (collec, req, res, resultCity) => {
     const restaurants = await searchCollec;
     const result = { count, coords, restaurants };
 
-    res.json(result);
+    return {
+      result: result,
+      status: true
+    };
   } catch (error) {
     res.status(400).send({ message: error.message });
+    return {
+      result: null,
+      status: false
+    };
   }
 };
 
