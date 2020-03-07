@@ -10,6 +10,9 @@ require("dotenv").config();
 const searchRoutes = require("./routes/search");
 app.use(searchRoutes);
 
+const restaurantRoutes = require("./routes/restaurant");
+app.use(restaurantRoutes);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

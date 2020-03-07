@@ -15,6 +15,8 @@ router.get("/search", createArrTypes, async (req, res) => {
       const result = await fetchDatas(Restaurant, req, res, resultCity);
       if (result.status === true) {
         res.json(result);
+      } else {
+        res.status(400);
       }
     }
   } catch (error) {

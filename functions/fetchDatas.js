@@ -13,7 +13,10 @@ const fetchDatas = async (collec, req, res, resultCity) => {
     });
     searchCollec.limit(limit).skip(skip);
 
-    const count = await collec.countDocuments({ city: id });
+    const count = await collec.countDocuments({
+      city: id,
+      type: req.arrTypes
+    });
     const restaurants = await searchCollec;
     const result = { count, coords, restaurants };
 
