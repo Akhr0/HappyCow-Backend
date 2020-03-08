@@ -31,7 +31,23 @@ const Restaurant = mongoose.model("Restaurant", {
   city: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "City"
-  }
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  favUsers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review"
+    }
+  ]
 });
 
 module.exports = Restaurant;
