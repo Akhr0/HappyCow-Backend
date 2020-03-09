@@ -39,13 +39,11 @@ router.post(
         // Construct new User
         const newUser = new User({
           account: {
-            username,
-            infos: {
-              vegStatus,
-              homeCity,
-              birthYear
-            }
+            vegStatus,
+            homeCity,
+            birthYear
           },
+          username,
           email,
           token,
           salt,
@@ -99,7 +97,7 @@ router.post("/user/log_in", async (req, res) => {
 });
 
 router.get("/user/infos", isAuthenticated, async (req, res) => {
-  res.json(req.user.account);
+  res.json({ username: req.user.username, avatar: req.user.avatar });
 });
 
 module.exports = router;

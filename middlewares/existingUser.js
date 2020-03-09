@@ -5,9 +5,7 @@ const existingUser = async (req, res, next) => {
     const { username, email } = req.fields;
     //Conditions
     const usernameChecked = await User.findOne({
-      account: {
-        username: username
-      }
+      username: username
     });
     const emailChecked = await User.findOne({ email: email });
 
