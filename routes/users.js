@@ -100,4 +100,37 @@ router.get("/user/infos", isAuthenticated, async (req, res) => {
   res.json({ username: req.user.username, avatar: req.user.avatar });
 });
 
+router.get("/user/profil", isAuthenticated, async (req, res) => {
+  const {
+    username,
+    avatar,
+    owned,
+    points,
+    email,
+    favorites,
+    following,
+    followed,
+    account
+  } = req.user;
+  res.json({
+    username,
+    avatar,
+    owned,
+    points,
+    email,
+    favorites,
+    following,
+    followed,
+    account
+  });
+});
+
+router.post("/user/favoris", isAuthenticated, async (req, res) => {
+  const { fav, id } = req.fields;
+  console.log("route empruntée");
+  console.log(fav);
+  console.log(id);
+  res.json("OK");
+});
+
 module.exports = router;
