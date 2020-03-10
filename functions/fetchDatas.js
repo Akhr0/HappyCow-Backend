@@ -6,12 +6,27 @@ const fetchDatas = async (collec, req, res, resultCity) => {
     const limit = Number(req.query.limit);
     const skip = (page - 1) * limit;
 
-    // Create search, using filters
-    const searchCollec = collec.find({
-      city: id,
-      type: req.arrTypes
-    });
-    searchCollec.limit(limit).skip(skip);
+    let searchCollec;
+    if (req.premium === 1) {
+      // Create search, with premium only
+      searchCollec = collec.find({
+        city: id,
+        type: req.arrTypes,
+        premium: 1
+      });
+    } else {
+      // Create search, using classic filters
+      searchCollec = collec.find({
+        city: id,
+        type: req.arrTypes
+      });
+    }
+
+    searchCollec
+      .sort({ premium: -1 })
+      .sort({ rating: -1 })
+      .limit(limit)
+      .skip(skip);
 
     const count = await collec.countDocuments({
       city: id,

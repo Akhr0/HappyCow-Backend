@@ -127,9 +127,12 @@ router.get("/user/profil", isAuthenticated, async (req, res) => {
 
 router.post("/user/favoris", isAuthenticated, async (req, res) => {
   const { fav, id } = req.fields;
-  console.log("route empruntée");
-  console.log(fav);
-  console.log(id);
+  const user = req.user;
+  if (fav === "false") {
+    await User.updateOne({ _id: user._id }, { $addToSet: { favorites: id } });
+  } else if (user.favorites.indexOf(id) !== -1) {
+    await User.updateOne({ _id: user._id }, { $pull: { favorites: id } });
+  }
   res.json("OK");
 });
 

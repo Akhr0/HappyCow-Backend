@@ -29,6 +29,13 @@ const createArrTypes = async (req, res, next) => {
   }
 
   req.arrTypes = arrTypes;
+
+  //Ajout premium
+  req.query.premium
+    ? req.query.premium === "1"
+      ? (req.premium = 1)
+      : (req.premium = 0)
+    : (req.premium = 0);
   next();
 };
 
