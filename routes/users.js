@@ -101,28 +101,32 @@ router.get("/user/infos", isAuthenticated, async (req, res) => {
 });
 
 router.get("/user/profil", isAuthenticated, async (req, res) => {
-  const {
-    username,
-    avatar,
-    owned,
-    points,
-    email,
-    favorites,
-    following,
-    followed,
-    account
-  } = req.user;
-  res.json({
-    username,
-    avatar,
-    owned,
-    points,
-    email,
-    favorites,
-    following,
-    followed,
-    account
-  });
+  try {
+    const {
+      username,
+      avatar,
+      owned,
+      points,
+      email,
+      favorites,
+      following,
+      followed,
+      account
+    } = req.user;
+    res.json({
+      username,
+      avatar,
+      owned,
+      points,
+      email,
+      favorites,
+      following,
+      followed,
+      account
+    });
+  } catch (error) {
+    res.json({ message: "Unauthorized authentication" });
+  }
 });
 
 router.post("/user/favoris", isAuthenticated, async (req, res) => {
@@ -134,6 +138,22 @@ router.post("/user/favoris", isAuthenticated, async (req, res) => {
     await User.updateOne({ _id: user._id }, { $pull: { favorites: id } });
   }
   res.json("OK");
+});
+
+router.get("/user/simpleInfo", async (req, res) => {
+  try {
+    const id = req.query.id;
+    const searchUser = User.findOne({
+      _id: id
+    });
+    const result = await searchUser;
+    res.json({
+      username: result.username,
+      avatar: result.avatar,
+      points: result.points,
+      type: result.account.vegStatus
+    });
+  } catch (error) {}
 });
 
 module.exports = router;

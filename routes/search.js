@@ -24,4 +24,15 @@ router.get("/search", createArrTypes, async (req, res) => {
   }
 });
 
+router.get("/search/cities", async (req, res) => {
+  try {
+    const searchCities = City.find();
+    searchCities.sort({ count: -1 });
+    const response = await searchCities;
+    res.json(response);
+  } catch (error) {
+    res.send({ message: error.message });
+  }
+});
+
 module.exports = router;

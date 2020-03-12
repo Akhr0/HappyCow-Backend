@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Restaurant = require("../models/Restaurant");
+const Review = require("../models/Review");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 
 router.get("/restaurant", async (req, res) => {
   try {

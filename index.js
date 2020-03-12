@@ -16,6 +16,9 @@ app.use(restaurantRoutes);
 const usersRoutes = require("./routes/users");
 app.use(usersRoutes);
 
+const reviewsRoutes = require("./routes/reviews");
+app.use(reviewsRoutes);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
