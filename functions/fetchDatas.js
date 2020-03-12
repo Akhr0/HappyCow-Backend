@@ -14,19 +14,24 @@ const fetchDatas = async (collec, req, res, resultCity) => {
         type: req.arrTypes,
         premium: 1
       });
+
+      searchCollec
+        .sort({ premium: -1 })
+        .sort({ rating: -1 })
+        .limit(limit)
+        .skip(skip);
     } else {
       // Create search, using classic filters
       searchCollec = collec.find({
         city: id,
         type: req.arrTypes
       });
-    }
 
-    searchCollec
-      .sort({ premium: -1 })
-      .sort({ rating: -1 })
-      .limit(limit)
-      .skip(skip);
+      searchCollec
+        .sort({ rating: -1 })
+        .limit(limit)
+        .skip(skip);
+    }
 
     const count = await collec.countDocuments({
       city: id,

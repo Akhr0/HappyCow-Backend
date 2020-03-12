@@ -10,7 +10,8 @@ const City = mongoose.model("City", {
   coords: {
     lat: String,
     lng: String
-  }
+  },
+  picture: String
 });
 
 module.exports = City;
