@@ -156,4 +156,56 @@ router.get("/user/simpleInfo", async (req, res) => {
   } catch (error) {}
 });
 
+router.post("/user/update", isAuthenticated, async (req, res) => {
+  try {
+    const {
+      username,
+      homeCity,
+      description,
+      reasonsVeg,
+      reasonsSite,
+      favPlaces,
+      favPerson,
+      favMusic,
+      vegStuff,
+      path,
+      relationShip,
+      starSign,
+      vegStatus,
+      email
+    } = req.fields;
+
+    const user = req.user;
+
+    await User.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          email: email,
+          username: username,
+          "account.description": description,
+          "account.reasonsVeg": reasonsVeg,
+          "account.reasonsSite": reasonsSite,
+          "account.favPlaces": favPlaces,
+          "account.favMusic": favMusic,
+          "account.favPerson": favPerson,
+          "account.vegStuff": vegStuff,
+          "account.path": path,
+          "account.relationShip": relationShip,
+          "account.starSign": starSign,
+          "account.vegStatus": vegStatus,
+          "account.homeCity": homeCity
+        }
+      }
+    );
+    res.json({
+      _id: user.id,
+      token: user.token
+    });
+  } catch (error) {
+    console.log("je passe");
+    res.json({ message: "Unauthorized authentication" });
+  }
+});
+
 module.exports = router;
